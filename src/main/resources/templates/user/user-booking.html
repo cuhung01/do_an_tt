@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>TOUR MANAGEMENT</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="../../public/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../../public/lib/owlcarousel/assets/owl.carousel.min.css"
+          rel="stylesheet">
+    <link
+            href="../../public/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+            rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../../public/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+<!-- Topbar Start -->
+<div class="container-fluid bg-light pt-3 d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <p>
+                        <i class="fa fa-envelope mr-2"></i>lephuhung311001@gmail.com
+                    </p>
+                    <p class="text-body px-3">|</p>
+                    <p>
+                        <i class="fa fa-phone-alt mr-2"></i>+0888 899 999
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-primary px-3" href=""> <i
+                            class="fab fa-facebook-f"></i>
+                    </a> <a class="text-primary px-3" href=""> <i
+                        class="fab fa-twitter"></i>
+                </a> <a class="text-primary px-3" href=""> <i
+                        class="fab fa-linkedin-in"></i>
+                </a> <a class="text-primary px-3" href=""> <i
+                        class="fab fa-instagram"></i>
+                </a> <a class="text-primary pl-3" href=""> <i
+                        class="fab fa-youtube"></i>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: center; margin-left: 150px;">
+        <a href="/" class="navbar-brand">
+            <h1 class="m-0" style="font-family: 'Roboto', sans-serif; font-size: 35px; color: #007bff; font-weight: 700;">
+                <span style="color: #343a40;">TOUR</span> MANAGEMENT
+            </h1>
+        </a>
+        <a href="/tour/trong-nuoc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tour trong nước</a>
+        <a href="/tour/ngoai-nuoc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tour ngoài nước</a>
+        <a href="/tin-tuc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tin tức</a>
+        <a href="/about" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Về chúng tôi</a>
+        <a href="/account" class="nav-item nav-link" style="margin-right: 50px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tài khoản</a>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Contact Start -->
+<div  class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-3 pb-3">
+            <h1>Thông tin tour</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form bg-white" style="padding: 30px;">
+                    <form name="sentMessage" method="post" action="/register" id="contactForm"
+                          novalidate="novalidate">
+                        <h5 class="text-primary text-uppercase py-4" style="letter-spacing: 5px;">Thông tin chi tiết tour đã đặt</h5>
+
+                        <div class="control-group">
+                            <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;">Tên tour</h6>
+                            <input type="email" class="form-control p-4" name="email" id="subjsdsect"
+                                   placeholder="Tên tour" required="required" disabled="disabled"
+                                   data-validation-required-message="Vui lòng nhập email" th:value="${booking.ten_tour}" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="control-group col-sm-6">
+                                <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;">Ngày khởi hành</h6>
+                                <input type="tel" class="form-control p-4" id="name" name="ngay_khoi_hanh"
+                                       placeholder="Ngày khởi hành" required="required" disabled="disabled"
+                                       data-validation-required-message="Vui lòng nhập số điện thoại" th:value="${#dates.format(booking.ngay_khoi_hanh, 'dd-MM-yyyy')}" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div style="margin-top: 10px">
+                                <div>
+                                    <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;margin-top: 10px">Số lượng người lớn</h6>
+                                    <input style="margin-top: 10px" type="number" value="1" class="form-control p-4" id="so_luong_nguoi_lon" th:value="${booking.so_luong_nguoi_lon}" name="so_luong_nguoi_lon" disabled="disabled"
+                                           />
+                                    <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;margin-top: 10px">Số lượng trẻ em 1 đến 3 tuổi</h6>
+                                    <input style="margin-top: 10px" type="number" value="1" class="form-control p-4" id="so_luong_tre_em_13" th:value="${booking.so_luong_tre_em_13}" name="so_luong_tre_em_13" disabled="disabled"
+                                    />
+                                    <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;margin-top: 10px">Số lượng người lớn</h6>
+                                    <input  style="margin-top: 10px" type="number" value="1" class="form-control p-4" id="so_luong_tre_em_46" th:value="${booking.so_luong_tre_em_46}" name="so_luong_tre_em_46" disabled="disabled"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" style="margin-top: 10px">
+                            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Tổng tiền cần thanh toán</h6>
+                            <h5 class="text-danger mt-4" th:attr="data-price=${booking.tong_tien}" id="tong_tien" th:inline="text">
+                                [[${#numbers.formatInteger(booking.tong_tien,3,'POINT')}]] VNĐ
+                            </h5>
+                            <p class="help-block text-danger"></p>
+
+                        </div>
+
+                        <div class="control-group">
+                            <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;">Ghi chú</h6>
+                            <textarea type="email" class="form-control p-4" name="ghi_chu" id="subjecdds" th:value="${booking.ghi_chu}" th:text="${booking.ghi_chu}"
+                                      placeholder="Ghi chú" required="required"  disabled="disabled"
+                                      data-validation-required-message="Vui lòng nhập email"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <h6 class="text-primary text-uppercase " style="letter-spacing: 5px;">Phương thức thanh toán</h6>
+                        <div class="form-row pb-2">
+                            <div class="control-group">
+                                <input type="radio" th:checked="${booking.pt_thanh_toan==0}" value="0" class="p-2" id="tien_mat" name="pt_thanh_toan" disabled="disabled" placeholder="Ngày khởi hành" required="required"/>
+                                <label for="tien_mat">Thanh toán tiền mặt tại công ty</label>
+                            </div>
+                            <div class="control-group">
+                                <input type="radio" value="1" th:checked="${booking.pt_thanh_toan==1}"  class="p-2" id="chuyen_khoan" disabled="disabled" name="pt_thanh_toan"  placeholder="Nhập số người" />
+                                <label for="chuyen_khoan">Chuyển khoản với nội dung: dattour sdt đến stk: 084354939-MB bank </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h6 class="text-primary text-uppercase " disabled="disabled" style="letter-spacing: 5px;">Trạng thái booking</h6>
+                            <div class="col-lg-3" th:switch="${booking.trang_thai}">
+                                <b th:case="0">Đang xử lý</b>
+                                <b th:case="1">Đã thanh toán thành công</b>
+                                <b th:case="2">Tour đang diễn ra</b>
+                                <b th:case="3">Tour đã hoàn hành</b>
+                                <b th:case="4">Tour đã bị hủy</b>
+                            </div>
+                        </div>
+                        <div th:if="${booking.trang_thai!=3 && booking.trang_thai!=4 && booking.trang_thai!=2}" class="text-center">
+                            <a class="btn btn-primary py-3 px-4" onclick="return confirm('Bạn có chắc chắn hủy tour ?')" th:href="@{/user/booking/cancel/{id}(id=${booking.id})}"  id="sendMessageButton" >Hủy tour</a>
+                        </div>
+                        <div th:if="${booking.trang_thai==3 || booking.trang_thai==4 || booking.trang_thai==2}" class="text-center">
+                            <a class="btn btn-primary py-3 px-4 disabled" disabled="disabled" id="sendMessagfdfdeButton"  >Hủy tour</a>
+                            <p class="text-danger">Không thể hủy tour này</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+
+
+
+<div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5"
+     style="margin-top: 90px;">
+    <div class="row pt-5">
+        <div class="col-lg-4 col-md-6 mb-5">
+            <a href="" class="navbar-brand">
+                <h1 class="text-primary">
+                    <span class="text-white">TOUR</span> MANAGEMENT
+                </h1>
+            </a>
+            <p>Quản lý tour du lịch</p>
+            <h6 class="text-white text-uppercase mt-4 mb-3"
+                style="letter-spacing: 5px;">Theo dõi chúng tôi</h6>
+            <div class="d-flex justify-content-start">
+                <a class="btn btn-outline-primary btn-square mr-2" href="#"><i
+                        class="fab fa-twitter"></i></a> <a
+                    class="btn btn-outline-primary btn-square mr-2" href="#"><i
+                    class="fab fa-facebook-f"></i></a> <a
+                    class="btn btn-outline-primary btn-square mr-2" href="#"><i
+                    class="fab fa-linkedin-in"></i></a> <a
+                    class="btn btn-outline-primary btn-square" href="#"><i
+                    class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-5">
+            <h5 class="text-white text-uppercase mb-4"
+                style="letter-spacing: 5px;">Dịch vụ của chúng tôi</h5>
+            <div class="d-flex flex-column justify-content-start">
+                <a class="text-white-50 mb-2" href="/about"><i
+                        class="fa fa-angle-right mr-2"></i>Về chúng tôi</a>
+                <a class="text-white-50 mb-2" href="/tin-tuc"><i
+                        class="fa fa-angle-right mr-2"></i>Tin tức</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-5">
+            <h5 class="text-white text-uppercase mb-4"
+                style="letter-spacing: 5px;">Liên hệ với chúng tôi</h5>
+            <p>
+                <i class="fa fa-map-marker-alt mr-2"></i>99 Đường Cầu Diễn , Bắc
+                Từ Liêm , Hà Nội
+            </p>
+            <p>
+                <i class="fa fa-phone-alt mr-2"></i>+0888 899 999
+            </p>
+            <p>
+                <i class="fa fa-envelope mr-2"></i>info@example.com
+            </p>
+            <h6 class="text-white text-uppercase mt-4 mb-3"
+                style="letter-spacing: 5px;">Newsletter</h6>
+            <div class="w-100">
+                <div class="input-group">
+                    <input type="text" class="form-control border-light"
+                           style="padding: 25px;" placeholder="Your Email">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary px-3">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div
+        class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
+    <div class="row">
+        <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+            <p class="m-0 text-white-50">
+                Copyright &copy; <a href="#">Domain</a>. All Rights Reserved.</a>
+            </p>
+        </div>
+        <div class="col-lg-6 text-center text-md-right">
+            <p class="m-0 text-white-50">
+                Designed by <a href="https://htmlcodex.com">HTML Codex</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+        class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="/public/js/boostrap-bundle.min.js"></script>
+<script src="/public/js/jquery.js"></script>
+<script src="../../public/lib/easing/easing.min.js"></script>
+<script src="../../public/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../../public/lib/tempusdominus/js/moment.min.js"></script>
+<script src="../../public/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script
+        src="../../public/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="../../public/mail/jqBootstrapValidation.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="../../public/js/main.js"></script>
+<script type="text/javascript">
+    // document.getElementById("sendMessageButton").onclick = function (e) {
+    //     e.preventDefault();
+    //     if(document.getElementById("username").disabled) {
+    //         document.getElementById("select-gender").removeAttribute("disabled");
+    //         var inputs = document.querySelectorAll("input");
+    //         for (var i = 0; i < inputs.length; i++) {
+    //             inputs[i].removeAttribute("disabled");
+    //         }
+    //     }else {
+    //         document.getElementById("contactForm").submit();
+    //     }
+    // };
+</script>
+</body>
+
+</html>

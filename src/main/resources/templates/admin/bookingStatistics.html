@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Thống kê Booking</title>
+    <link rel="stylesheet" href="/public/admin/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/admin/css/datatables.min.css"/>
+    <link href="/public/admin/css/styles.css" rel="stylesheet" />
+    <style>
+        label {
+            padding: 10px 0;
+        }
+        table.dataTable tbody td:last-child {
+            text-align: center;
+        }
+        table.dataTable tbody td:last-child button{
+            margin: 4px;
+        }
+        .dataTables_wrapper td {
+            font-size: 13px;
+        }
+        .dataTables_wrapper thead th {
+            font-size: 13px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #000;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand ps-3" href="index.html">Quản lý booking</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+</nav>
+
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="/admin/user">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Trang chủ
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Trang quản lý</div>
+                    <a class="nav-link" href="/admin/user">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Quản lý người dùng
+                    </a>
+                    <a class="nav-link collapsed" href="/admin/tour" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Quản lý tour
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admin/tour">Danh sách Tour</a>
+                            <a class="nav-link" href="/admin/tour">Ngày khởi hành</a>
+                            <a class="nav-link" href="/admin/tour">Quản lý ảnh</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link" href="/admin/booking">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Quản lý booking
+                    </a>
+                    <a class="nav-link" href="/admin/tourStatistics">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-pie"></i></div>
+                        Thống kê Tour
+                    </a>
+                    <a class="nav-link" href="/admin/bookingStatistics">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-pie"></i></div>
+                        Thống kê booking
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                Admin
+            </div>
+        </nav>
+    </div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Thống kê Booking</h1>
+                <form action="/admin/bookingStatistics" method="get">
+                    <select name="filterType" id = "filterType">
+                        <option value="day">Theo Ngày</option>
+                        <option value="month">Theo Tháng</option>
+                        <option value="year">Theo Năm</option>
+                    </select>
+                    <input type="text" name="date" placeholder="YYYY-MM-DD"> <!-- Dành cho ngày -->
+
+                    <!-- Tháng và Năm -->
+                    <input type="number" name="month" min="1" max="12" placeholder="Tháng (1-12)">
+                    <input type="number" name="year" placeholder="Năm (YYYY)">
+
+                    <button type="submit">Lọc thống kê</button>
+                </form>
+
+
+                <button id="exportBtn">Xuất Thống Kê</button>
+
+                <table id="bookingStatisticsTable" class="display">
+                    <thead>
+                    <tr>
+                        <th>Tour ID</th>
+                        <th>Tên Tour</th>
+                        <th>Số Người</th>
+                        <th>Trạng Thái</th>
+                        <th>Tổng Tiền</th>
+                        <th>Ngày Booking</th>
+                        <th>Tổng Tiền Cọc</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="booking : ${bookingStatistics}">
+                        <td th:text="${booking.tour_id}"></td>
+                        <td th:text="${booking.ten_tour}"></td>
+                        <td th:text="${booking.totalPeople}"></td>
+                        <td>
+                            <span th:if="${booking.trang_thai == 0}">Chờ đặt cọc 20%</span>
+                            <span th:if="${booking.trang_thai == 1}">Đã đặt cọc 20%</span>
+                            <span th:if="${booking.trang_thai == 2}">Đang tiến hành</span>
+                            <span th:if="${booking.trang_thai == 3}">Đã hoàn thành</span>
+                            <span th:if="${booking.trang_thai == 4}">Đã hủy</span>
+                        </td>
+                        <td th:text="${booking.totalAmount}"></td>
+                        <td th:text="${#dates.format(booking.booking_at, 'dd-MM-yyyy')}"></td>
+                        <td>
+                            <span th:if="${booking.trang_thai == 4}">
+                            <del th:text="${booking.tiencoc}"></del>
+                            </span>
+                            <span th:if="${booking.trang_thai != 4}" th:text="${booking.tiencoc}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table id="completedBookingstable">
+                    <tr>
+                        <th> Tổng Tiền<br> (Của Tour đã hoàn thành, đã cọc )</th>
+                    </tr>
+                    <tr th:each="booking : ${completedBookings}">
+                        <td th:text="${booking.completedAmount}"> </td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="/public/admin/js/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Định dạng số tiền trong bảng thống kê booking
+        $('#bookingStatisticsTable tbody tr').each(function () {
+            // Định dạng tổng tiền cho booking
+            var totalAmountCell = $(this).find('td:nth-child(5)'); // Cột "Tổng Tiền"
+            var totalAmount = parseFloat(totalAmountCell.text().replace(/,/g, '')); // Chuyển đổi sang số
+            totalAmountCell.text(totalAmount.toLocaleString()); // Định dạng lại với dấu phẩy
+
+            var totalAmountCell = $(this).find('td:nth-child(7)'); // Cột "Tổng Tiền"
+            var totalAmount = parseFloat(totalAmountCell.text().replace(/,/g, '')); // Chuyển đổi sang số
+            totalAmountCell.text(totalAmount.toLocaleString()); // Định dạng lại với dấu phẩy
+
+
+        });
+
+        // Khởi tạo DataTable
+        $('#bookingStatisticsTable').DataTable();
+        $('#completedBookingstable tr').each(function () {
+            var completedAmountCell = $(this).find('td'); // Chỉ có 1 cột trong bảng này
+            var completedAmount = parseFloat(completedAmountCell.text().replace(/,/g, '')); // Chuyển đổi sang số
+            completedAmountCell.text(completedAmount.toLocaleString()); // Định dạng lại với dấu phẩy
+        });
+
+        // Khởi tạo DataTable cho bảng bookingStatisticsTable nếu cần
+        $('#bookingStatisticsTable').DataTable();
+    });
+
+
+    $(document).ready(function () {
+        $('#bookingStatisticsTable tbody tr').each(function () {
+            var status = $(this).find('td:nth-child(4)').text().trim(); // Lấy trạng thái từ cột "Trạng Thái"
+            var depositCell = $(this).find('td:nth-child(7)'); // Cột "Tổng Tiền Cọc"
+
+            if (status === "Đã hủy") {
+                var depositValue = depositCell.text().trim();
+                depositCell.html(`<del>${depositValue}</del>`); // Thay nội dung bằng thẻ <del>
+            }
+        });
+    });
+
+
+
+        document.getElementById("filterType").addEventListener("change", function () {
+        var type = this.value;
+        document.getElementById("date").style.display = type === "day" ? "inline-block" : "none";
+        document.getElementById("month").style.display = type === "month" ? "inline-block" : "none";
+        document.getElementById("year").style.display = type === "year" ? "inline-block" : "none";
+    });
+
+
+
+
+
+    window.onload = function() {
+        console.log('Window loaded');
+        const exportBtn = document.getElementById("exportBtn");
+
+        if (exportBtn) {
+            console.log('Export button found');
+            exportBtn.addEventListener("click", function() {
+                fetch("/admin/exportBookingStatistics", {
+                    method: "GET",
+                    headers: {
+                        'Accept': 'application/vnd.ms-excel',
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = "booking_statistics.xlsx";
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        console.error("Error exporting data: ", error);
+                    });
+            });
+        } else {
+            console.error('Export button not found');
+        }
+    };
+
+
+
+</script>
+
+</body>
+</html>

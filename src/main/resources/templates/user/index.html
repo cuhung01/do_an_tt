@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>TOUR MANAGEMENT</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free HTML Templates" name="keywords">
+<meta content="Free HTML Templates" name="description">
+
+<!-- Favicon -->
+<link href="public/img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link  href="/public/css/all.min.css"  rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="public/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="public/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="public/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+	<!-- Topbar Start -->
+	<div class="container-fluid bg-light pt-3 d-none d-lg-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+					<div class="d-inline-flex align-items-center">
+						<p>
+							<i class="fa fa-envelope mr-2"></i>lephuhung311001@gmail.com
+						</p>
+						<p class="text-body px-3">|</p>
+						<p>
+							<i class="fa fa-phone-alt mr-2"></i>+0888 899 999
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-6 text-center text-lg-right">
+					<div class="d-inline-flex align-items-center">
+						<a class="text-primary px-3" href=""> <i
+							class="fab fa-facebook-f"></i>
+						</a> <a class="text-primary px-3" href=""> <i
+							class="fab fa-twitter"></i>
+						</a> <a class="text-primary px-3" href=""> <i
+							class="fab fa-linkedin-in"></i>
+						</a> <a class="text-primary px-3" href=""> <i
+							class="fab fa-instagram"></i>
+						</a> <a class="text-primary pl-3" href=""> <i
+							class="fab fa-youtube"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="display: flex; align-items: center; margin-left: 150px;">
+			<a href="/" class="navbar-brand">
+				<h1 class="m-0" style="font-family: 'Roboto', sans-serif; font-size: 35px; color: #007bff; font-weight: 700;">
+					<span style="color: #343a40;">TOUR</span> MANAGEMENT
+				</h1>
+			</a>
+			<a href="/tour/trong-nuoc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tour trong nước</a>
+			<a href="/tour/ngoai-nuoc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tour ngoài nước</a>
+			<a href="/tin-tuc" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tin tức</a>
+			<a href="/about" class="nav-item nav-link" style="margin-right: 10px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Về chúng tôi</a>
+			<a href="/account" class="nav-item nav-link" style="margin-right: 50px; font-family: 'Roboto', sans-serif; font-size: 22px; color: #007bff; font-weight: 700;" onmouseover="this.style.color='#28a745'" onmouseout="this.style.color='#007bff'">Tài khoản</a>
+		</div>
+	</div>
+	<!-- Topbar End -->
+
+	<!-- Packages Start -->
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="text-center mb-3 pb-3">
+				<h1>Những tour nổi bật trong nước</h1>
+			</div>
+			<div class="row">
+				<div th:each="tour : ${tours}" class="col-lg-4 col-md-6 mb-4">
+					<div class="package-item bg-white mb-2">
+						<img class="img-fluid" style="height: 200px; width: 100%; " th:src="'/public/img/' + ${tour.anh_tour}" alt="">
+						<div class="p-4">
+							<div class="d-flex justify-content-between mb-3" th:inline="text">
+								<small class="m-0"><i
+									class="fa fa-map-marker-alt text-primary mr-2"></i>[[${tour.diem_den}]]</small>
+								<small class="m-0">[[${tour.so_ngay}]] ngày </small>
+							</div>
+							<a class="h5 text-decoration-none" th:href="@{/tour/{id}(id=${tour.id})}"
+								th:text="${tour.ten_tour}"></a>
+							<p class="card-text" style="height: 40px" th:text="${tour.gioi_thieu_tour}"></p>
+							<div class="border-top mt-4 pt-4">
+								<div class="d-flex justify-content-between">
+									<h6 class="m-0">
+										<i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
+									</h6>
+									<h5 class="m-0" th:inline="text">[[${#numbers.formatInteger(tour.gia_tour,3,'POINT')}]] VNĐ
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Packages End -->
+
+	<!-- Packages Start -->
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="text-center mb-3 pb-3">
+				<h1>Những tour mới nhất</h1>
+			</div>
+			<div class="row">
+				<div th:each="tour : ${tours}" class="col-lg-4 col-md-6 mb-4">
+					<div class="package-item bg-white mb-2">
+						<img class="img-fluid" style="height: 220px; width: 100%;" th:src="'/public/img/' + ${tour.anh_tour}" alt="">
+						<div class="p-4">
+							<div class="d-flex justify-content-between mb-3" th:inline="text">
+								<small class="m-0"><i
+										class="fa fa-map-marker-alt text-primary mr-2"></i>[[${tour.diem_den}]]</small>
+								<small class="m-0">[[${tour.so_ngay}]] ngày </small>
+							</div>
+							<a class="h5 text-decoration-none" th:href="@{/tour/{id}(id=${tour.id})}"
+							   th:text="${tour.ten_tour}"></a>
+							<p class="card-text" style="height: 40px" th:text="${tour.gioi_thieu_tour}"></p>
+							<div class="border-top mt-4 pt-4">
+								<div class="d-flex justify-content-between">
+									<h6 class="m-0">
+										<i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
+									</h6>
+									<h5 class="m-0" th:inline="text">[[${#numbers.formatInteger(tour.gia_tour,3,'POINT')}]] VNĐ
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- Packages End -->
+
+
+	<!-- Feature Start -->
+	<div class="container-fluid pb-5" style="margin-top: 5rem">
+		<div class="container pb-5">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="d-flex mb-4 mb-lg-0">
+						<div
+								class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3"
+								style="height: 100px; width: 100px;">
+							<i class="fa fa-2x fa-money-check-alt text-white"></i>
+						</div>
+						<div class="d-flex flex-column">
+							<h5 class="">Giá cả hợp lý</h5>
+							<p class="m-0">Chúng tôi luôn đưa ra mức chi phí tốt nhất và
+								tối ưu nhất cho khách hàng.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="d-flex mb-4 mb-lg-0">
+						<div
+								class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3"
+								style="height: 100px; width: 100px;">
+							<i class="fa fa-2x fa-award text-white"></i>
+						</div>
+						<div class="d-flex flex-column">
+							<h5 class="">Dịch vụ tuyệt vời</h5>
+							<p class="m-0">Với châm ngôn khách hàng là thượng đế chúng
+								tôi luôn muốn đem lại những gì tuyệt vời nhất cho khách hàng.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="d-flex mb-4 mb-lg-0">
+						<div
+								class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3"
+								style="height: 100px; width: 100px;">
+							<i class="fa fa-2x fa-globe text-white"></i>
+						</div>
+						<div class="d-flex flex-column">
+							<h5 class="">Địa điểm đa dạng</h5>
+							<p class="m-0">Công ty chúng tôi có nhiều sự lựa chọn điểm
+								đến cho khách hàng thoải mái lựa chọn.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Feature End -->
+
+	<div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5"
+		 style="margin-top: 90px;">
+		<div class="row pt-5">
+			<div class="col-lg-4 col-md-6 mb-5">
+				<a href="" class="navbar-brand">
+					<h1 class="text-primary">
+						<span class="text-white">TOUR</span> MANAGEMENT
+					</h1>
+				</a>
+				<p>Quản lý tour du lịch</p>
+				<h6 class="text-white text-uppercase mt-4 mb-3"
+					style="letter-spacing: 5px;">Theo dõi chúng tôi</h6>
+				<div class="d-flex justify-content-start">
+					<a class="btn btn-outline-primary btn-square mr-2" href="#"><i
+							class="fab fa-twitter"></i></a> <a
+						class="btn btn-outline-primary btn-square mr-2" href="#"><i
+						class="fab fa-facebook-f"></i></a> <a
+						class="btn btn-outline-primary btn-square mr-2" href="#"><i
+						class="fab fa-linkedin-in"></i></a> <a
+						class="btn btn-outline-primary btn-square" href="#"><i
+						class="fab fa-instagram"></i></a>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 mb-5">
+				<h5 class="text-white text-uppercase mb-4"
+					style="letter-spacing: 5px;">Dịch vụ của chúng tôi</h5>
+				<div class="d-flex flex-column justify-content-start">
+					<a class="text-white-50 mb-2" href="/about"><i
+							class="fa fa-angle-right mr-2"></i>Về chúng tôi</a>
+					<a class="text-white-50 mb-2" href="/tin-tuc"><i
+							class="fa fa-angle-right mr-2"></i>Tin tức</a>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 mb-5">
+				<h5 class="text-white text-uppercase mb-4"
+					style="letter-spacing: 5px;">Liên hệ với chúng tôi</h5>
+				<p>
+					<i class="fa fa-map-marker-alt mr-2"></i>99 Đường Cầu Diễn , Bắc
+					Từ Liêm , Hà Nội
+				</p>
+				<p>
+					<i class="fa fa-phone-alt mr-2"></i>+0888 899 999
+				</p>
+				<p>
+					<i class="fa fa-envelope mr-2"></i>info@example.com
+				</p>
+				<h6 class="text-white text-uppercase mt-4 mb-3"
+					style="letter-spacing: 5px;">Newsletter</h6>
+				<div class="w-100">
+					<div class="input-group">
+						<input type="text" class="form-control border-light"
+							   style="padding: 25px;" placeholder="Your Email">
+						<div class="input-group-append">
+							<button class="btn btn-primary px-3">Sign Up</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div
+			class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+			style="border-color: rgba(256, 256, 256, .1) !important;">
+		<div class="row">
+			<div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+				<p class="m-0 text-white-50">
+					Copyright &copy; <a href="#">Domain</a>. All Rights Reserved.</a>
+				</p>
+			</div>
+			<div class="col-lg-6 text-center text-md-right">
+				<p class="m-0 text-white-50">
+					Designed by <a href="https://htmlcodex.com">HTML Codex</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- Footer End -->
+
+
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+		class="fa fa-angle-double-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+
+<!--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
+
+<!--	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+	<script src="/public/js/boostrap-bundle.min.js"></script>
+	<script src="/public/js/jquery.js"></script>
+	<script src="public/lib/easing/easing.min.js"></script>
+	<script src="public/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="public/lib/tempusdominus/js/moment.min.js"></script>
+	<script src="public/lib/tempusdominus/js/moment-timezone.min.js"></script>
+	<script
+		src="public/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+	<!-- Contact Javascript File -->
+	<script src="public/mail/jqBootstrapValidation.min.js"></script>
+	<script src="public/mail/contact.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="public/js/main.js"></script>
+	<script type="text/javascript">
+
+
+	</script>
+</body>
+
+</html>
